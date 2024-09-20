@@ -1,0 +1,266 @@
+// Variables
+@import 'variables';
+
+@import 'interview';
+
+@import '../../node_modules/vue-select/dist/vue-select.css';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import '../../node_modules/@mdi/font/scss/materialdesignicons.scss';
+
+/**
+ We eliminate the height of the navbar from the height of the screen
+ */
+.interviewcomponent{
+    height: calc(100vh - 56px);
+}
+
+.navbar-laravel {
+background-color: #fff;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+a{
+	text-decoration:none !important;
+}
+
+.modal {
+    transition: opacity 0.25s ease;
+}
+body.modal-active {
+    overflow-x: hidden;
+    overflow-y: visible !important;
+}
+
+.sorting-container{
+position:fixed;
+width: 100%;
+height: 100%;
+overflow: visible;
+}
+
+div[class^="circle_container"]{
+height: 100vh;
+}
+
+
+.token-container > div{
+padding: 5px;
+width: 50px;
+height: 50px;
+position:relative;
+top:0;
+right:0;
+margin-top:5px;
+}
+
+.token-img{
+overflow: auto; /* adds scrollbars */
+height: 100%;
+max-width: 200px;
+position: relative;
+}
+.token-img-newtokenInterview{
+    overflow: auto; /* adds scrollbars */
+    max-width: 200px;
+    position: relative;
+}
+
+
+.is-selected{
+@apply bg-blue-500;
+@apply text-white;
+@apply hover:bg-blue-700
+}
+
+.radio + .radio {
+margin-left: 0em; }
+
+.loading {
+position: absolute;
+left: 50%;
+top: 50%;
+margin: -60px 0 0 -60px;
+background: #fff;
+width: 100px;
+height: 100px;
+border-radius: 100%;
+border: 10px solid #19bee1;
+}
+
+.loading:after {
+content: '';
+background: trasparent;
+width: 140%;
+height: 140%;
+position: absolute;
+border-radius: 100%;
+top: -20%;
+left: -20%;
+opacity: 0.7;
+box-shadow: rgba(0, 0, 0, 0.6) -4px -5px 3px -3px;
+animation: rotate 2s infinite linear;
+}
+
+@keyframes rotate {
+0% {
+transform: rotateZ(0deg);
+}
+100% {
+transform: rotateZ(360deg);
+}
+}
+
+@function multiply-px($value1, $value2) {
+@return $value1 * $value2;
+}
+
+@function divide($value1, $value2) {
+@return $value1 / $value2;
+}
+
+@for $i from 1 through 10 {
+.round-sorting#{$i} {
+border-radius: 50%;
+border: 2px solid #000;
+width: multiply-px(9.5vw,$i);
+height: multiply-px(9.5vw,$i);
+max-width: 100%;
+max-height: 100%;
+margin:0 auto;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+position: absolute;
+z-index: 10-$i;
+}
+}
+
+
+
+.spinner {
+
+width: 40px;
+height: 30px;
+text-align: center;
+font-size: 10px;
+}
+
+.spinner > div {
+background-color: #fff;
+height: 100%;
+width: 5px;
+display: inline-block;
+
+-webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+-webkit-animation-delay: -1.1s;
+animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+-webkit-animation-delay: -1.0s;
+animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+-webkit-animation-delay: -0.9s;
+animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+-webkit-animation-delay: -0.8s;
+animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes sk-stretchdelay {
+0%, 40%, 100% {
+transform: scaleY(0.4);
+-webkit-transform: scaleY(0.4);
+}  20% {
+transform: scaleY(1.0);
+-webkit-transform: scaleY(1.0);
+}
+}
+
+.has-text-blue{
+    color: #046cbe;
+}
+
+.b-tabs .tab-content{
+    padding: 0;
+}
+
+.vs__dropdown-menu{
+
+
+}
+
+/**
+Registration
+ */
+
+.list-item-registration {
+    margin-bottom: 8px;
+    color: #525f7f;
+    position: relative;
+}
+
+.list-item-registration:before {
+    content: "";
+    width: 0%; height: 2px;
+    background: #2ecc71;
+    position: absolute;
+    left: 0; top: 50%;
+    display: block;
+    transition: all .6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+.is_valid { color: rgba(136, 152, 170, 0.8); }
+.is_valid:before { width: 100%; }
+
+.checkmark_container {
+    border-radius: 50%;
+    position: absolute;
+    top: -15px; right: -15px;
+    background: #2ecc71;
+    width: 50px; height: 50px;
+    visibility: hidden;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .4s ease;
+}
+
+.show_checkmark {
+    visibility: visible;
+    opacity: 1;
+}
+
+.checkmark {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: white;
+    stroke-width: 15;
+    stroke-linecap: round;
+    stroke-dasharray: 180;
+    stroke-dashoffset: 180;
+}
+
+.checked { animation: draw 0.5s ease forwards; }
+
+@keyframes draw {
+    to { stroke-dashoffset: 0; }
+}

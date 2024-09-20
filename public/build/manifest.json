@@ -1,0 +1,26 @@
+{
+  "resources/js/app.js": {
+    "file": "assets/app-Bz41yV9G.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-Dxk8XzcV.css"
+    ]
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-BTxPpQT5.css",
+    "src": "resources/sass/app.scss",
+    "isEntry": true
+  },
+  "resources/sass/app_dompdf.scss": {
+    "file": "assets/app_dompdf-ByvPrbA6.css",
+    "src": "resources/sass/app_dompdf.scss",
+    "isEntry": true
+  },
+  "resources/sass/app_lingua.scss": {
+    "file": "assets/app_lingua-COM1nrR6.css",
+    "src": "resources/sass/app_lingua.scss",
+    "isEntry": true
+  }
+}

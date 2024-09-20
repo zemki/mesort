@@ -1,0 +1,56 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "postcss": {
+        "plugins": {
+            "tailwindcss": "./tailwind.config.js"
+        },
+        "autoprefixer": {}
+    },
+    "devDependencies": {
+        "@babel/core": "^7.17.4",
+        "@babel/preset-env": "^7.16.11",
+        "@tailwindcss/forms": "^0.5.0",
+        "@vue/runtime-dom": "latest",
+        "autoprefixer": "^10.4.2",
+        "axios": "1.7.7",
+        "jquery": "^3.6.0",
+        "laravel-vite-plugin": "^1.0.4",
+        "popper.js": "^2.0.0-next.4",
+        "postcss": "^8.4.8",
+        "postcss-import": "^14.0.2",
+        "sass": "^1.58.3",
+        "sass-loader": "^8.0.2",
+        "tailwindcss": "^3.0.23",
+        "vite": "^5.3.3",
+        "vue": "2.7.16",
+        "vue-loader": "^15.9.7"
+    },
+    "dependencies": {
+        "@babel/runtime": "^7.17.2",
+        "@mdi/font": "^4.9.95",
+        "@vitejs/plugin-vue2": "^2.3.1",
+        "alpinejs": "^2.8.2",
+        "altcha": "^0.2.2",
+        "child_process": "^1.0.2",
+        "core-js": "^3.21.0",
+        "es6-promise": "^4.2.8",
+        "fs": "0.0.1-security",
+        "html-to-image": "1.10.0",
+        "i": "^0.3.7",
+        "imagemin": "^7.0.1",
+        "interactjs": "^1.10.27",
+        "moment": "^2.29.1",
+        "vite-plugin-require": "^1.2.14",
+        "vue-gravatar": "^1.4.1",
+        "vue-material-design-icons": "^4.13.0",
+        "vue-select": "^3.16.0",
+        "vue-template-compiler": "2.6.14",
+        "vue2-touch-events": "^2.3.2",
+        "vuex": "^3.6.2",
+        "ziggy-js": "^2.2.1"
+    }
+}

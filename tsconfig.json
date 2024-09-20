@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    // ...
+  },
+  "vueCompilerOptions": {
+    "experimentalCompatMode": 2,
+    "experimentalTemplateCompilerOptions": {
+      "compatConfig": { "MODE": 2 } // optional
+    }
+  }
+}
