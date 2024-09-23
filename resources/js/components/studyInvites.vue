@@ -97,7 +97,7 @@ export default {
                 .post(
                     window.location.origin +
                     this.productionUrl +
-                    "studies/invite",
+                    "/studies/invite",
                     {
                         email: this.toInvite,
                         study: this.study,
@@ -136,7 +136,7 @@ export default {
                 .post(
                     window.location.origin +
                     this.productionUrl +
-                    "studies/invite/" +
+                    "/studies/invite/" +
                     userToDetach.id,
                     {email: userToDetach.email, study: this.study}
                 )
