@@ -2143,7 +2143,7 @@ export default {
                 };
 
 
-                window.axios.patch(window.location.origin + this.productionUrl + '/studies/' + study['id'], study).then(response => {
+                window.axios.patch(window.location.origin + this.productionUrl + 'studies/' + study['id'], study).then(response => {
 
                     if (response.message) {
                         this.response = response.message;

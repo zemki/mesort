@@ -78,7 +78,7 @@
                         <a
                             :href="
                                     productionUrl +
-                                    '/interview/' +
+                                   'interview/' +
                                     interview.id +
                                     '/show'
                                 "
@@ -93,7 +93,7 @@
                         <a
                             :href="
                                     productionUrl +
-                                    '/export/' +
+                                    'export/' +
                                     interview.id +
                                     '/interview'
                                 "
@@ -180,7 +180,7 @@ export default {
                     .delete(
                         window.location.origin +
                         this.productionUrl +
-                        "/interview/" +
+                        "interview/" +
                         id,
                         {data: id}
                     )

@@ -317,14 +317,14 @@
                         <div class="space-y-2 w-full">
                             <a
                                 title="manage study"
-                                :href="productionUrl + '/studies/' + study.id"
+                                :href="productionUrl + 'studies/' + study.id"
                                 class="block text-center w-full px-3 py-1.5 text-sm font-medium text-white bg-blue-500 border border-transparent rounded-md shadow-sm cursor-pointer hover:bg-blue-700 hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
                                 {{ trans("Manage Project") }}
                             </a>
                             <a
                                 title="new interview"
-                                :href="productionUrl + 'interview/new?study=' + study.id"
+                                :href="productionUrl + 'nterview/new?study=' + study.id"
                                 @click.prevent="setIntervieweeName(study.id)"
                                 class="block text-center w-full px-3 py-1.5 text-sm font-medium text-white bg-blue-500
                             border border-transparent rounded-md shadow-sm cursor-pointer hover:bg-blue-700
@@ -367,7 +367,7 @@
                             <a
                                 v-if="study.authiscreator"
                                 :aria-disabled="!study.editable"
-                                :href="productionUrl + '/studies/' + study.id + '/edit'"
+                                :href="productionUrl + 'studies' + study.id + '/edit'"
                                 title="edit study"
                                 :class="!study.editable ? 'pointer-events-none select-none cursor-not-allowed opacity-50 block text-center w-full px-3 py-1.5 text-sm font-medium text-white bg-blue-500 rounded-md shadow-sm hover:bg-blue-700 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500' : 'block text-center w-full px-3 py-1.5 text-sm font-medium hover:text-gray-200 text-white bg-blue-500 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'"
                             >
@@ -471,7 +471,7 @@ export default {
                 .post(
                     window.location.origin +
                     self.productionUrl +
-                    "/studies/invite/" +
+                    "studies/invite/" +
                     self.leaveProjectUserId,
                     {
                         email: self.loggedUser.email,

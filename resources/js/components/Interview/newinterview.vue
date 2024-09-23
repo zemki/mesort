@@ -1056,7 +1056,7 @@ export default {
                         setTimeout(function () {
                             window.imagepreset = null;
                             self.loading = false;
-                            window.location.href = publicInterviewToken ? window.location.origin + self.productionUrl + "/interview/done" : "../";
+                            window.location.href = publicInterviewToken ? window.location.origin + self.productionUrl + "interview/done" : "../";
                         }, 1000);
                     })
                     .catch((error) => {
