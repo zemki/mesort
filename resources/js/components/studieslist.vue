@@ -324,7 +324,7 @@
                             </a>
                             <a
                                 title="new interview"
-                                :href="productionUrl + 'interview/new?study=' + study.id"
+                                :href="productionUrl + '/interview/new?study=' + study.id"
                                 @click.prevent="setIntervieweeName(study.id)"
                                 class="block text-center w-full px-3 py-1.5 text-sm font-medium text-white bg-blue-500
                             border border-transparent rounded-md shadow-sm cursor-pointer hover:bg-blue-700
