@@ -1,0 +1,44 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: MeSort
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Alessandro
+    family-names: Belli
+    email: belli@uni-bremen.de
+    affiliation: 'ZeMKI, University of Bremen'
+    orcid: 'https://orcid.org/0000-0002-7292-8321'
+  - given-names: Florian
+    family-names: Hohmann
+    email: fhohmann@uni-bremen.de
+    affiliation: 'ZeMKI, University of Bremen'
+    orcid: 'https://orcid.org/0000-0003-2637-0600'
+  - given-names: Gino
+    family-names: Krüger
+    email: gikrueger@uni-bremen.de
+    affiliation: 'ZeMKI, University of Bremen'
+    orcid: 'https://orcid.org/0000-0001-7150-6963'
+  - given-names: Andreas
+    family-names: Hepp
+    affiliation: 'ZeMKI, University of Bremen'
+    email: ahepp@uni-bremen.de
+    orcid: 'https://orcid.org/0000-0001-7292-4147'
+repository-code: 'https://github.com/zemki/mesort'
+url: 'https://mesoftware.org/mesort'
+abstract: >-
+  MeSort is a web-based software for implementing highly customizable sorting tasks.
+keywords:
+  - qualitative data
+  - quali
+  - data analysis
+  - qualitative analysis
+  - qualitative research
+  - ZeMKI
+  - University of Bremen
+license: AGPL-3.0
+date-released: '2024-05-01'
