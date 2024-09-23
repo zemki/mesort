@@ -296,7 +296,7 @@
                                                                     {{ sortingsDescription[sindex] }}</p>
                                                             </div>
                                                             <img
-                                                                :src="`${baseUrl}${productionUrl}/images/sorting${sindex + 1}.png`"
+                                                                :src="`${baseUrl}${productionUrl}images/sorting${sindex + 1}.png`"
                                                                 alt="circle sorting"
                                                                 class="z-10 bg-gray-100 rounded-full w-10 h-10 transition-transform duration-200 ease-in-out transform hover:scale-150 scale">
                                                         </div>
@@ -2143,7 +2143,7 @@ export default {
                 };
 
 
-                window.axios.patch(window.location.origin + this.productionUrl + 'studies/' + study['id'], study).then(response => {
+                window.axios.patch(window.location.origin + this.productionUrl + '/studies/' + study['id'], study).then(response => {
 
                     if (response.message) {
                         this.response = response.message;
