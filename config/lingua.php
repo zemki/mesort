@@ -2,7 +2,7 @@
 
 return
     [
-        'admin' => env('LINGUA_ADMIN', 'test@test.test'),
+        'admin' => explode(',', env('LINGUA_ADMIN', '')),
         'translator' => [],
         'table-fields' => [
             'string',
