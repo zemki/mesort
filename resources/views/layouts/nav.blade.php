@@ -8,7 +8,7 @@
             <svg class="text-white fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                  viewBox="0 0 18 18">
                 <path
-                    d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                        d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
                 </path>
             </svg>
             <span class="text-sm">(Esc)</span>
@@ -25,7 +25,7 @@
                     <svg class="text-black fill-current" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                          viewBox="0 0 18 18">
                         <path
-                            d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
                         </path>
                     </svg>
                 </div>
@@ -33,19 +33,19 @@
 
             <!--Body-->
             <input
-                class="block w-full px-4 py-2 leading-normal bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring"
-                type="email" v-model="newemail.email" id="newemail"/>
+                    class="block w-full px-4 py-2 leading-normal bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring"
+                    type="email" v-model="newemail.email" id="newemail"/>
 
             <!--Footer-->
             <div class="flex justify-end pt-2">
                 <button
-                    class="inline-flex items-center justify-center px-4 py-2 mr-2 text-sm font-medium text-white bg-blue-500 border border-transparent rounded-md shadow-sm cursor-pointer hover:bg-blue-700 hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 xl:w-full"
-                    @click="sendEmail()">
+                        class="inline-flex items-center justify-center px-4 py-2 mr-2 text-sm font-medium text-white bg-blue-500 border border-transparent rounded-md shadow-sm cursor-pointer hover:bg-blue-700 hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 xl:w-full"
+                        @click="sendEmail()">
                     {{ trans("Submit") }}
                 </button>
                 <button
-                    class="inline-flex items-center justify-center px-4 py-2 ml-2 text-sm font-medium text-white bg-blue-500 border border-transparent rounded-md shadow-sm cursor-pointer hover:bg-blue-700 hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 xl:w-full"
-                    @click="toggleModalChangeEmail()">
+                        class="inline-flex items-center justify-center px-4 py-2 ml-2 text-sm font-medium text-white bg-blue-500 border border-transparent rounded-md shadow-sm cursor-pointer hover:bg-blue-700 hover:text-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 xl:w-full"
+                        @click="toggleModalChangeEmail()">
                     {{ trans("Close") }}
                 </button>
             </div>
@@ -102,14 +102,16 @@
                             </a>
                         @endif
                         <div class="flex">
-                            <a title="{{__('MeSort User Manuals')}}" href="https://mesoftware.org/index.php/mesort/"
+                            <a title="{{__('MeSort User Manuals')}}" href="https://www.uni-
+bremen.de/fileadmin/user_upload/fachbereiche/fb9/zemki/media/photos/publikationen/wor
+king-papers/2020/CoFi_EWP_No-33_Hohmann_et_al.pdf"
                                class="px-3 py-2 text-sm font-medium text-gray-200 rounded-md hover:text-white">{{__('Manuals')}}</a>
                         </div>
 
                         <div class="flex shrink-0">
                             <span class="sr-only">{{__('Your Email')}}</span>
                             <span
-                                class="px-3 py-2 text-sm font-medium text-gray-200 rounded-md cursor-pointer pointer-events-none hover:text-gray-200">{{
+                                    class="px-3 py-2 text-sm font-medium text-gray-200 rounded-md cursor-pointer pointer-events-none hover:text-gray-200">{{
                 Auth::user()->email }}</span>
                         </div>
                         <div class="relative z-50 flex-shrink-0 ml-4">
