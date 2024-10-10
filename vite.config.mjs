@@ -7,8 +7,6 @@ import vue from '@vitejs/plugin-vue2'
 import postcss from './postcss.config.js';
 import vitePluginRequire from "vite-plugin-require";
 
-let host = "mesort.test";
-
 export default defineConfig({
     plugins: [
         laravel({
@@ -23,7 +21,6 @@ export default defineConfig({
         vitePluginRequire.default(),
     ],
     css: postcss,
-    server: detectServerConfig(host),
     build: {
         commonjsOptions: {transformMixedEsModules: true}
     },
@@ -31,33 +28,6 @@ export default defineConfig({
         alias: {
             vue: "vue/dist/vue.js",
             'jquery-ui': 'jquery-ui-dist/jquery-ui.js',
-
         },
     },
 });
-
-function detectServerConfig(host) {
-    let keyPath = resolve(homedir(), `.config/valet/Certificates/${host}.key`);
-    let certificatePath = resolve(
-        homedir(),
-        `.config/valet/Certificates/${host}.crt`
-    );
-
-    if (!fs.existsSync(keyPath)) {
-        return {};
-    }
-
-    if (!fs.existsSync(certificatePath)) {
-        return {};
-    }
-
-    return {
-        hmr: {host},
-        host: true,
-        cors: true,
-        https: {
-            key: fs.readFileSync(keyPath),
-            cert: fs.readFileSync(certificatePath),
-        },
-    };
-}

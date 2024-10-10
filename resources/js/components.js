@@ -15,13 +15,13 @@ import ActionTable from "./components/actiontable.vue";
 import UserTable from "./components/usertable.vue";
 import BetterBrowserMessage from "./components/useChromeFirefoxModal.vue";
 import StudyInvites from "./components/studyInvites.vue";
-
 import StudiesList from "./components/studieslist.vue";
 import Sortings from "./components/Interview/view-sorting-interview.vue";
 import CustomDialogue from "./components/CustomDialogue.vue";
 import ShowInterview from "./components/Interview/show-interview.vue";
-// Register components globally
 
+
+// Register components globally
 Vue.component("v-gravatar", Gravatar);
 Vue.component("new-interview", NewInterview);
 Vue.component("circle-sorting", CircleSorting);

@@ -28,13 +28,14 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes(['verify' => true]);
 
-Route::middleware([
-    'throttle:3,10',
-])->group(function () {
+Route::middleware(['throttle:5,1'])->group(function () {
     Route::get('/password/set', [VerificationController::class, 'showresetpassword']);
-    Route::get('/password/reset-form', [ResetPasswordController::class, 'reset'])->name('password.reset.form');
     Route::get('/setpassword', [VerificationController::class, 'showresetpassword']);
     Route::post('/password/new', [VerificationController::class, 'newpassword']);
+    Route::get('/password/reset-form', [ResetPasswordController::class, 'reset'])->name('password.reset.form');
+});
+
+Route::middleware(['throttle:10,5'])->group(function () {
     Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
     Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
 });
@@ -99,7 +100,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/users', [UserController::class, 'store']);
 
     Route::get('/users', [UserController::class, 'overview']);
-    Route::get('/user/profile', [UserController::class, 'show'])->name('userprofile');
     Route::get('/user/{user}', [UserController::class, 'edit']);
     Route::patch('/users/{user}', [UserController::class, 'update']);
     Route::delete('/users/{user}', [UserController::class, 'destroy']);

@@ -26,7 +26,6 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
-use Spatie\WebhookServer\WebhookCall;
 
 class StudyController extends Controller
 {
@@ -80,8 +79,7 @@ class StudyController extends Controller
         }
 
         $data['breadcrumb'] = ['Home', 'New Study'];
-
-        // if(!Auth::user ()->cancreatestudies())abort(403,'You cannot create studies');
+        
         $data['isedit'] = 'false';
         $data['presetimages'] = Helper::getPresetImages();
         $data['classifiers'] = Helper::getClassifiers();
@@ -100,7 +98,7 @@ class StudyController extends Controller
         $study->load('questions', 'sortings', 'tokens');
         foreach ($study->getRelations() as $relationName => $values) {
             if ($relationName === 'sortings') {
-                $request = new Request();
+                $request = new Request;
                 $request->replace(['details' => $study->sortings[0]->pivot->details, 'sortingid' => $study->sortings[0]->id]);
                 Sorting::store($request, $copy);
             } elseif ($relationName === 'questions') {
@@ -157,7 +155,7 @@ class StudyController extends Controller
             return response()->json('Data are not valid', 422);
         }
 
-        $newStudy = new Study();
+        $newStudy = new Study;
         $newStudy->description = $request->description;
         $newStudy->name = $request->name;
         $newStudy->author = $request->author;
@@ -211,7 +209,7 @@ class StudyController extends Controller
         $atLeastOneQuestion = array_key_exists('question', $questions[0]);
         if ($atLeastOneQuestion) {
             foreach ($questions as $questionToSave) {
-                $question = new Question();
+                $question = new Question;
                 $question->question = $questionToSave['question'];
                 $question->detail = $questions[0]['type'];
                 if (array_key_exists('canShowSorting', $questionToSave) && $questionToSave['canShowSorting']) {
@@ -231,7 +229,7 @@ class StudyController extends Controller
     {
         if ($questionToSave['ismultiple']) {
             foreach ($questionToSave['answers'] as $answerToSave) {
-                $answer = new Answer();
+                $answer = new Answer;
                 $answer->question_id = $question->id;
                 $answerJson = ['type' => 'multi', 'answer' => $answerToSave];
                 $answer->answer = $answerJson;
@@ -240,7 +238,7 @@ class StudyController extends Controller
         }
         if ($questionToSave['isonechoice']) {
             foreach ($questionToSave['answers'] as $answerToSave) {
-                $answer = new Answer();
+                $answer = new Answer;
                 $answer->question_id = $question->id;
                 $answerJson = ['type' => 'onechoice', 'answer' => $answerToSave];
                 $answer->answer = $answerJson;
@@ -248,14 +246,14 @@ class StudyController extends Controller
             }
         }
         if ($questionToSave['isopen']) {
-            $answer = new Answer();
+            $answer = new Answer;
             $answerJson = ['type' => 'open', 'answer' => ''];
             $answer->question_id = $question->id;
             $answer->answer = $answerJson;
             $answer->save();
         }
         if ($questionToSave['isscale']) {
-            $answer = new Answer();
+            $answer = new Answer;
             $answerJson = ['type' => 'scale', 'answer' => ['min' => $questionToSave['scalemin'], 'max' => $questionToSave['scalemax'], 'minlabel' => $questionToSave['minlabel'], 'maxlabel' => $questionToSave['maxlabel']]];
             $answer->question_id = $question->id;
             $answer->answer = $answerJson;
@@ -396,7 +394,7 @@ class StudyController extends Controller
         $study = Study::where('id', $request->input('study'))->first();
         $user = User::where('email', '=', $request->email)->first();
         if (! $user) {
-            $user = new User();
+            $user = new User;
             $user->email = $request->email;
             $user->password = Helper::random_str(60);
             $user->password_token = Helper::random_str(30);

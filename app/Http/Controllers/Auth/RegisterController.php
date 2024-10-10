@@ -86,11 +86,6 @@ class RegisterController extends Controller
         $user->password_token = Helper::random_str(30);
         $user->save();
 
-        $profile = $user->addProfile($user);
-
-        $profile->newsletter = array_key_exists('newsletter', $data) ? config('enums.newsletter_status.SUBSCRIBED') : config('enums.newsletter_status.NOT SUBSCRIBED');
-        $profile->save();
-
         $user->roles()->sync($role);
 
         $user->save();
