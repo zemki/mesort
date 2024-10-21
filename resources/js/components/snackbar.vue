@@ -1,4 +1,3 @@
-```vue
 <template>
     <transition name="fade">
         <div v-if="visible" class="fixed bottom-0 left-0 right-0 mb-4 ml-4 max-w-sm p-4 bg-gray-800 text-white rounded shadow-lg z-50">
