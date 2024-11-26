@@ -11,4 +11,5 @@ If you don't see the button, please copy and paste this link:
 ",
     'maxNumberOfStudies' => env('MAX_NUMBER_STUDIES', 5),
     'blockedIps' => explode(',', env('BLOCKED_IPS', '')),
+    'adminemails' => explode(',', env('ADMINS', '')),
 ];
