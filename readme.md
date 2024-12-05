@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/860402711.svg)](https://doi.org/10.5281/zenodo.13836993)
+
 <div align="center" style="display: flex; align-items: center; justify-content: center;">
 <img src="public/images/logo.png" alt="img Mesort" width="100"/>    
 <h2 style="margin-right: 10px;">Mesort</h2>
