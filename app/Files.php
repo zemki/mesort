@@ -24,9 +24,9 @@ class Files extends Model
         'type', 'path', 'size', 'interview_id',
     ];
 
-    public static function occupiedStorage(): mixed
+    public static function occupiedStorage(): int
     {
-        return Files::all()->sum('size');
+        return Files::sum('size') ?: 0;
     }
 
     public static function storeSortingScreenshot(Request $request, Study $study, $interviewid, &$name): void

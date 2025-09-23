@@ -76,9 +76,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Role::class, 'user_roles');
     }
 
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
     public function addProfile($user)
     {
-        $profile = new Profile();
+        $profile = new Profile;
         $profile->user_id = $user->id;
         $profile->save();
 
@@ -92,7 +97,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function addAction($name, $url, $description = '')
     {
-        $action = new Action();
+        $action = new Action;
         $action->name = $name;
         $action->description = $description;
         $action->url = $url;

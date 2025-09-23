@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Permission;
 use App\Role;
 use App\User;
 use Illuminate\Console\Command;
@@ -22,61 +21,123 @@ class CreateUserCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Create a user';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Create a new user account';
 
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
     public function handle()
     {
-        $email = $this->ask('Enter *supervisor* email');
-        /*        $this->info('2 -> Supervisor'); */
-        /*        $this->info('3 -> Researcher'); */
-        /*        $role = $this->choice('User role?', [2, 3]); */
-        $password = $this->secret('Enter password');
-        $role = 2;
+        $this->info('Creating a new user account...');
+        $this->newLine();
 
-        if ($this->store($role, $email, $password, $user)) {
-            // Mail::to($email)->send(new VerificationEmail($user, config('utilities.emailDefaultText')));
-            // $this->info('An email was sent to '.$user->email.' he/she needs to set the password.');
-            $this->info('User ' . $email . ' created');
+        // Get user input with validation
+        $email = $this->askRequiredEmail('Enter user email address');
+        $password = $this->askRequiredSecret('Enter password');
 
-            return true;
+
+        // Choose role
+        $this->info('Available roles:');
+        $this->info('1 -> Admin (full access)');
+        $this->info('2 -> Researcher (can create studies and interviews)');
+        $roleChoice = $this->choice('Select user role', ['1', '2'], '2');
+
+        $roleName = $roleChoice === '1' ? 'admin' : 'researcher';
+
+        // Ask about email verification
+        $this->newLine();
+        $verifyEmail = $this->confirm('Should the email be marked as verified?', true);
+
+        if ($this->createUser($email, $password, $roleName, $verifyEmail)) {
+            $this->newLine();
+            $verificationStatus = $verifyEmail ? 'verified' : 'unverified';
+            $this->info("✓ User '{$email}' created successfully with role: {$roleName} (email: {$verificationStatus})");
+            return Command::SUCCESS;
         }
 
-        $this->info('There it was an error during user creation, please try again.');
-
-        return false;
+        $this->newLine();
+        $this->error('✗ Failed to create user. Please check the details and try again.');
+        return Command::FAILURE;
     }
 
-    public function store($roleId, $email, $password, &$user)
+    /**
+     * Ask for required email input with validation
+     */
+    private function askRequiredEmail(string $question): string
     {
-        $role = Role::where('id', $roleId)->first();
-        $user = new User();
-        $user->email = $email;
-        $user->password = bcrypt($password);
-        // $user->password_token = Helper::random_str(30);
-        $user->email_verified_at = Date::now();
-        $user->save();
-        $user->attachRole($role);
-        $createStudyPermission = Permission::where('name', 'create-studies')
-            ->first();
-        $user->supervised_by = $user->id;
-        $user->save();
-        $user->attachPermissions([$createStudyPermission]);
+        do {
+            $value = $this->ask($question);
+            if (empty(trim($value))) {
+                $this->error('Email is required. Please enter an email address.');
+                continue;
+            }
 
-        return true;
+            if (!filter_var(trim($value), FILTER_VALIDATE_EMAIL)) {
+                $this->error('Please enter a valid email address.');
+                continue;
+            }
+
+            break;
+        } while (true);
+
+        return trim($value);
+    }
+
+    /**
+     * Ask for required secret input, repeat until non-empty value is provided
+     */
+    private function askRequiredSecret(string $question): string
+    {
+        do {
+            $value = $this->secret($question);
+            if (empty(trim($value))) {
+                $this->error('Password is required. Please enter a password.');
+            }
+        } while (empty(trim($value)));
+
+        return trim($value);
+    }
+
+    /**
+     * Create a new user with the specified role
+     */
+    private function createUser(string $email, string $password, string $roleName, bool $verifyEmail = true): bool
+    {
+        try {
+            // Check if user already exists
+            if (User::where('email', $email)->exists()) {
+                $this->error("User with email '{$email}' already exists!");
+                return false;
+            }
+
+            // Get the role
+            $role = Role::where('name', $roleName)->first();
+            if (!$role) {
+                $this->error("Role '{$roleName}' not found!");
+                return false;
+            }
+
+            // Create the user
+            $user = new User();
+            $user->email = $email;
+            $user->password = bcrypt($password);
+
+            // Set email verification based on user choice
+            if ($verifyEmail) {
+                $user->email_verified_at = Date::now();
+            }
+
+            $user->save();
+
+            // Attach role using sync method (like in RegisterController)
+            $user->roles()->sync($role);
+
+            return true;
+        } catch (\Exception $e) {
+            $this->error("Error creating user: " . $e->getMessage());
+            return false;
+        }
     }
 }

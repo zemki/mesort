@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/belli/code/metag-analyze/DOCS/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

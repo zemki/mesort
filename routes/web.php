@@ -53,11 +53,10 @@ Route::middleware(['haspowers', 'auth', 'verified'])->prefix('admin')->group(fun
     Route::get('/', [AdminController::class, 'index']);
     Route::post('/createdummystudy/{user}', [StudyController::class, 'store']);
     Route::post('/deletestudiesbyuser/{user}', [StudyController::class, 'deleteallbyuser']);
-    Route::get('/users', [AdminController::class, 'indexUsers']);
+    Route::get('/users', [AdminController::class, 'showUsers']);
     Route::get('/studies', [AdminController::class, 'showStudies']);
     Route::get('/downloadbackup', [AdminController::class, 'downloadBackup']);
     Route::get('/downloadyesterdaybackup', [AdminController::class, 'downloadYesterdayBackup']);
-    Route::get('/supervisor', [AdminController::class, 'supervisorindex']);
     Route::post('/users/supervisor', [UserController::class, 'store']);
     Route::get('/notifications', [NotificationController::class, 'create']);
     Route::post('/notify', [NotificationController::class, 'store']);

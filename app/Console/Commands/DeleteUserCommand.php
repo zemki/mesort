@@ -20,44 +20,70 @@ class DeleteUserCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Delete a user from the database. He will not be able to log in anymore!';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Delete a user account from the system';
 
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
     public function handle()
     {
-        $info = $this->choice('Email or ID?', ['email', 'id']);
-        $userEnteredData = $this->ask('Enter ' . $info);
-        try {
-            $user = User::where($info, '=', $userEnteredData)->withTrashed()->firstOrFail();
-        } catch (ModelNotFoundException $exception) {
-            $this->warn('user not found!');
+        $this->warn('⚠️  USER DELETION TOOL');
+        $this->newLine();
 
-            return false;
+        // Choose search method
+        $searchBy = $this->choice('How would you like to find the user?', ['email', 'id'], 'email');
+        $searchValue = $this->ask("Enter user {$searchBy}");
+
+        // Find user
+        try {
+            $user = User::where($searchBy, $searchValue)->withTrashed()->firstOrFail();
+        } catch (ModelNotFoundException $exception) {
+            $this->error("❌ User not found with {$searchBy}: {$searchValue}");
+            return Command::FAILURE;
         }
-        if ($this->confirm('ARE YOU SURE YOU WANT TO DELETE THIS USER? ' . $user->email, false)) {
-            $this->warn('Soft deletion keeps the user in the database but it acts as deleted. This allows to retrieve some data if necessary.');
-            $this->error('Force deletion delete the user and everything related, forever!');
-            $whichDelete = $this->choice('Soft or Force deletion?', ['Soft', 'Force']);
-            if ($whichDelete === 'Force') {
+
+        // Display user info
+        $this->newLine();
+        $this->info("Found user:");
+        $this->table(
+            ['Field', 'Value'],
+            [
+                ['ID', $user->id],
+                ['Name', $user->name ?? 'N/A'],
+                ['Email', $user->email],
+                ['Created', $user->created_at->format('Y-m-d H:i:s')],
+                ['Status', $user->trashed() ? 'Deleted' : 'Active'],
+            ]
+        );
+
+        // Confirm deletion
+        if (!$this->confirm("🚨 ARE YOU SURE YOU WANT TO DELETE USER: {$user->email}?", false)) {
+            $this->info('Operation cancelled.');
+            return Command::SUCCESS;
+        }
+
+        // Choose deletion type
+        $this->newLine();
+        $this->warn('⚠️  Soft deletion: Keeps user in database but marks as deleted (can be restored)');
+        $this->error('🗑️  Force deletion: Permanently removes user and all related data (CANNOT be undone)');
+
+        $deletionType = $this->choice('Select deletion type:', ['Soft', 'Force'], 'Soft');
+
+        try {
+            if ($deletionType === 'Force') {
                 $user->forceDelete();
+                $this->info("✅ User '{$user->email}' permanently deleted.");
             } else {
                 $user->delete();
+                $this->info("✅ User '{$user->email}' soft deleted.");
             }
-            $this->info('user deleted!');
+
+            return Command::SUCCESS;
+        } catch (\Exception $e) {
+            $this->error("❌ Failed to delete user: " . $e->getMessage());
+            return Command::FAILURE;
         }
     }
 }

@@ -13,8 +13,8 @@
 
 Route::group(['middleware' => 'interview'], function () {
     Route::group(['prefix' => 'v1'], function () {
-        Route::post('getpresettokenimages', 'ApiController@getpresettokenimages');
-        Route::post('savetoken', 'ApiController@savetoken');
+        Route::post('getpresettokenimages', 'ApiController@getPresetTokenImages');
+        Route::post('savetoken', 'ApiController@saveToken');
         Route::post('gettokens', 'ApiController@getTokens');
         Route::post('deletetoken', 'ApiController@deleteToken');
     });

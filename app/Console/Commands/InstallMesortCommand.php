@@ -59,16 +59,21 @@ class InstallMesortCommand extends Command
         $this->info('Password: ' . $password);
     }
 
-    public function storeUser($roleId, $email, $password, &$user): bool
+    public function storeUser($roleName, $email, $password, &$user): bool
     {
         if (! $this->validateUser($email, $password)) {
             return false;
         }
-        $role = Role::where('id', $roleId)->first();
+
+        $role = Role::where('name', $roleName)->first();
+        if (!$role) {
+            $this->error("Role '{$roleName}' not found!");
+            return false;
+        }
+
         $user = new User();
         $user->email = $email;
         $user->password = bcrypt($password);
-        $user->supervised_by = $user->id;
         $user->email_verified_at = Date::now();
         $user->save();
         $user->roles()->sync($role);
@@ -112,7 +117,7 @@ class InstallMesortCommand extends Command
         while (! $stored) {
             $email = $this->ask('Enter your email');
             $password = $this->ask('Enter your password - minimum 6 chars.');
-            $stored = $this->storeUser(1, $email, $password, $user);
+            $stored = $this->storeUser('admin', $email, $password, $user);
         }
     }
 }

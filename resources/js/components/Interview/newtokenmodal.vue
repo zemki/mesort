@@ -261,7 +261,8 @@ export default {
                             self.newinterview.newtoken.ispreset = true;
                         };
                     });
-                if (this.file.name == "") {
+                // Only set file.name for user-uploaded files, not preset tokens
+                if (this.file && this.file.name == "" && this.fileUpload.basename) {
                     this.file.name = this.fileUpload.basename;
                     this.newinterview.newtoken.file.name = this.newinterview.newtoken.file.file.basename;
                 }
