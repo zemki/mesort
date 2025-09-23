@@ -60,7 +60,7 @@ class EmailChangeController extends Controller
         Notification::route('mail', $request->email)
             ->notify(new EmailChangeNotification(Auth::user()->id));
 
-        return response(__('An email has been sent, please check your inbox. Link is valid for 60 minutes'), 200);
+        return response(__('An email has been sent, please check your inbox. Link is valid for 60 minutes'));
     }
 
     /**

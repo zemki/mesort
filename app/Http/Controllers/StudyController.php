@@ -102,18 +102,18 @@ class StudyController extends Controller
                 $request->replace(['details' => $study->sortings[0]->pivot->details, 'sortingid' => $study->sortings[0]->id]);
                 Sorting::store($request, $copy);
             } elseif ($relationName === 'questions') {
-                $this->CopyQuestionsRemoveInterviews($study, $copy);
+                $this->copyQuestionsRemoveInterviews($study, $copy);
             } elseif ($relationName === 'tokens') {
-                $this->RemoveTokensCreatedDuringInterview($values);
+                $this->removeTokensCreatedDuringInterview($values);
                 $copy->{$relationName}()->attach($values);
             }
         }
         $copy->save();
 
-        return response('study duplicated', 200);
+        return response('study duplicated');
     }
 
-    private function CopyQuestionsRemoveInterviews(Study $study, Study $copy): void
+    private function copyQuestionsRemoveInterviews(Study $study, Study $copy): void
     {
         foreach ($study->questions as $question) {
             $copiedQuestion = $copy->questions()->create($question->toArray());
@@ -130,7 +130,7 @@ class StudyController extends Controller
         }
     }
 
-    private function RemoveTokensCreatedDuringInterview(&$values): void
+    private function removeTokensCreatedDuringInterview(&$values): void
     {
         // remove tokens created during interview
         foreach ($values as $index => $token) {
@@ -178,7 +178,7 @@ class StudyController extends Controller
         }
         auth()->user()->addAction('Study Created', $request->url(), 'user created study ' . $newStudy->name);
 
-        return response()->json(['message' => 'Study Saved!', 'studyid' => $newStudy->id], 200);
+        return response()->json(['message' => 'Study Saved!', 'studyid' => $newStudy->id]);
     }
 
     /**
@@ -321,7 +321,7 @@ class StudyController extends Controller
             Question::storeExtremeQuestion($request->input('sorting.qsortextremequestion'), $study);
         }
 
-        return response()->json(['message' => 'Study Updated!', 'studyid' => $study->id], 200);
+        return response()->json(['message' => 'Study Updated!', 'studyid' => $study->id]);
     }
 
     public function removeTokensFromStudy(Study $study): void
@@ -360,7 +360,7 @@ class StudyController extends Controller
         $study->delete();
         auth()->user()->addAction('delete study', $request->url(), 'user deleted study ' . $name);
 
-        return response('study deleted', 200);
+        return response('study deleted');
     }
 
     /**
@@ -383,7 +383,7 @@ class StudyController extends Controller
         }
         auth()->user()->addAction('delete all studies by user', $request->url(), 'user deleted studies for the user  ' . $user->email);
 
-        return response()->json(['message' => 'Studies Deleted!'], 200);
+        return response()->json(['message' => 'Studies Deleted!']);
     }
 
     /**
@@ -413,12 +413,12 @@ class StudyController extends Controller
             }
         }
         if ($user->is($study->creator())) {
-            return response()->json(['message' => __('You can\'t invite who created the study.!')], 200);
+            return response()->json(['message' => __('You can\'t invite who created the study.!')]);
         }
 
         $study->invited()->syncWithoutDetaching($user->id);
 
-        return response()->json(['user' => $user, 'message' => __('User was invited!')], 200);
+        return response()->json(['user' => $user, 'message' => __('User was invited!')]);
     }
 
     public function removeFromStudy(Request $request)
@@ -432,7 +432,7 @@ class StudyController extends Controller
         if ($user) {
             $user->invites()->detach($request->input('study'));
 
-            return response()->json(['message' => __('User was removed from the Study!')], 200);
+            return response()->json(['message' => __('User was removed from the Study!')]);
         } else {
             return response()->json(['message' => __("The user doesn't exist!")], 403);
         }

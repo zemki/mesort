@@ -66,7 +66,7 @@ class UserController extends Controller
         }
         $user->delete();
 
-        return response('user deleted', 200);
+        return response('user deleted');
     }
 
     /**

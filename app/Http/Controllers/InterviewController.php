@@ -122,14 +122,14 @@ class InterviewController extends Controller
             'gotos' => $request->input('gotos') ? 'true' : 'false',
         ];
 
-        $this->GetTokensForInterview($data);
+        $this->getTokensForInterview($data);
 
         $presetsPath = 'presets';
         $appPath = storage_path('app/');
 
         foreach ($study->available_tokens as &$token) {
             $path = $token['image_path'];
-            if (strpos($path, $presetsPath) !== false) {
+            if (str_contains($path, $presetsPath)) {
                 $token['image_path'] = mb_convert_encoding($path, 'HTML-ENTITIES', 'UTF-8');
             } else {
                 $token['image_path'] = decrypt(file_get_contents($appPath . $path));
@@ -156,18 +156,18 @@ class InterviewController extends Controller
             $question->answer = json_decode('[' . $question->answer . ']');
             $question->answer['ids'] = explode(',', $question->answerids);
             if ($question->type === 'presort') {
-                array_push($returnQuestions['presort'], $question);
+                $returnQuestions['presort'][] = $question;
             }
             if (Str::contains($question->type, 'postsort')) {
-                array_push($returnQuestions['postsort'], $question);
+                $returnQuestions['postsort'][] = $question;
             }
             if ($question->type === 'extremeQuestion') {
-                array_push($returnQuestions['extremeQuestion'], $question);
+                $returnQuestions['extremeQuestion'][] = $question;
             }
         }
     }
 
-    private function GetTokensForInterview(&$data): void
+    private function getTokensForInterview(&$data): void
     {
         $tokens = &$data['tokens'];
         $presetsPath = 'presets';
@@ -175,7 +175,7 @@ class InterviewController extends Controller
 
         foreach ($tokens as &$token) {
             $path = $token['image_path'];
-            if (strpos($path, $presetsPath) !== false) {
+            if (str_contains($path, $presetsPath)) {
                 $token['image_path'] = mb_convert_encoding($path, 'HTML-ENTITIES', 'UTF-8');
             } else {
                 $token['image_path'] = decrypt(file_get_contents($appPath . $path));
@@ -195,19 +195,19 @@ class InterviewController extends Controller
             'end' => $request->input('time_end'),
         ]);
         Files::storeSortingScreenshot($request, $study, $interview->id, $name);
-        $this->SaveTokenValues($request, $interview);
+        $this->saveTokenValues($request, $interview);
         Answer::saveResultQuestions($request, $interview);
         if ($author !== 'From public url.') {
             auth()->user()->addAction('Interview Created', $request->url(), 'user created interview for study' . $study->name);
         }
 
-        return response()->json('Interview Saved!', 200);
+        return response()->json('Interview Saved!');
     }
 
     /**
      * Save token values for an interview. It loops through the sorting data in the request and processes the token values, such as position, percentage position, and classifiers. The processed data is then attached to the interview with the token id and relevant information.
      */
-    private function SaveTokenValues(Request $request, Interview $interview): void
+    private function saveTokenValues(Request $request, Interview $interview): void
     {
         $sorting = $request->input('sorting');
         $data = [];
@@ -254,10 +254,9 @@ class InterviewController extends Controller
         $interview->tokens()->delete();
         $interview->delete();
         File::delete($interview->sorting_screenshot);
-        $interview->delete();
         auth()->user()->addAction('delete interview', $request->url(), 'user deleted interview with id ' . $id);
 
-        return response()->json('interview deleted', 200);
+        return response()->json('interview deleted');
     }
 
     /**

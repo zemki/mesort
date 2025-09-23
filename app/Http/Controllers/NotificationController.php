@@ -65,7 +65,7 @@ class NotificationController extends Controller
                 $profile->save();
             }
 
-            return response()->json(['message' => 'Your preference was saved!', 'r' => $subscribe], 200);
+            return response()->json(['message' => 'Your preference was saved!', 'r' => $subscribe]);
         } catch (Exception $exception) {
             return response()->json(['message' => 'A problem occurred, contact the administrator.'], 500);
         }

@@ -29,9 +29,9 @@ class PublicInterviewUrlController extends Controller
             $url = (string) URLShortener::shorten(url('/interviews/new?study=' . request()->study . '&interviewed=' . (request()->name ?? '') . '&t=' . $uuid));
             $PublicInterviewUrl->short_url_id = Carbon::now()->toDateTimeString('minutes');
 
-            return response()->json(['message' => 'Url Created!.', 'url' => $url], 200);
+            return response()->json(['message' => 'Url Created!.', 'url' => $url]);
         } else {
-            return response()->json(['message' => 'Please set a study.'], 200);
+            return response()->json(['message' => 'Please set a study.']);
         }
     }
 
@@ -48,6 +48,6 @@ class PublicInterviewUrlController extends Controller
             ->where('id', '=', request()->url_id)
             ->delete();
 
-        return response('Url deleted', 200);
+        return response('Url deleted');
     }
 }
