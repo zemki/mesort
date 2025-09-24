@@ -13,6 +13,14 @@ MeSort ist eine Forschungs-App, die entwickelt wurde, um Sortieraufgaben zu erle
 Der Interviewpartner sortiert dann die Items, das Ergebnis des Sortiervorgangs wird gespeichert und kann als pdf exportiert werden.
 
 
+## Documentation
+
+For detailed setup, architecture, and development information, see the [DOCS](./DOCS/) folder:
+
+- **[Installation Guide](./DOCS/INSTALLATION.md)** - Setup instructions and requirements
+- **[Architecture Overview](./DOCS/ARCHITECTURE.md)** - Technology stack and system design
+- **[Development Guide](./DOCS/README.md)** - Commands and development workflow
+
 # Developer Notes
 
 - MeSort started by using the "Study" nomenclature, that's why you can find it in routes, controllers and models. Just in 2022 we decided to shift to "Projects", to have the same nomenclature for all MeSoftware projects.
