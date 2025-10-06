@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - test/implement-basic-tests
   pull_request:
 
 jobs:
