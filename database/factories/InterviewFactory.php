@@ -1,20 +1,24 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use App\Interview;
+use App\Study;
+use App\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Interview::class, function (Faker $faker) {
-    return [
-        'author' => $faker->word,
-        'interviewed' => $faker->word,
-        'study_id' => function () {
-            return factory(App\Study::class)->create()->id;
-        },
-        'start' => $faker->dateTime(),
-        'end' => $faker->dateTime(),
-        'author_id' => function () {
-            return factory(App\User::class)->create()->id;
-        },
-    ];
-});
+class InterviewFactory extends Factory
+{
+    protected $model = Interview::class;
+
+    public function definition(): array
+    {
+        return [
+            'author' => 1,  // Will be overridden in tests
+            'interviewed' => fake()->name(),
+            'study_id' => Study::factory(),
+            'start' => fake()->dateTime(),
+            'end' => fake()->dateTime(),
+        ];
+    }
+}
