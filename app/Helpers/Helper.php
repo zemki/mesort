@@ -48,7 +48,14 @@ class Helper
      */
     public static function getPresetImages(): array
     {
-        $filesInFolder = File::files(storage_path('app/presets_tokens'));
+        $presetPath = storage_path('app/presets_tokens');
+
+        // Return empty array if directory doesn't exist
+        if (!File::isDirectory($presetPath)) {
+            return [];
+        }
+
+        $filesInFolder = File::files($presetPath);
         $arrayOfFiles = [];
         $i = 0;
         foreach ($filesInFolder as $path) {
@@ -66,6 +73,12 @@ class Helper
     public static function getClassifiers(): array
     {
         $dir = storage_path('app/classifiers');
+
+        // Return default if directory doesn't exist
+        if (!File::isDirectory($dir)) {
+            return [[], [['name' => 'none']]];
+        }
+
         $classifiers = array_diff(scandir($dir), ['..', '.']);
 
         $arrayOfFiles = $arrayOfClassifiersName = [];
