@@ -1,15 +1,39 @@
 <?php
 
-/* @var $factory \Illuminate\Database\Eloquent\Factory */
+namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use App\Sorting;
+use App\Study;
+use App\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(App\Study::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'display_name' => $faker->word,
-        'user_id' => $faker->randomNumber(),
-        'author' => $faker->text,
-        'description' => $faker->text,
-    ];
-});
+class StudyFactory extends Factory
+{
+    protected $model = Study::class;
+
+    public function definition(): array
+    {
+        return [
+            'name' => fake()->company(),
+            'display_name' => fake()->words(3, true),
+            'user_id' => User::factory(),
+            'author' => fake()->name(),
+            'description' => fake()->paragraph(),
+        ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Study $study) {
+            // Attach a default sorting if sortings exist (from seeder)
+            $sorting = Sorting::first();
+            if ($sorting) {
+                $study->sortings()->attach($sorting->id, [
+                    'details' => 'circles|5||description|Default study',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        });
+    }
+}

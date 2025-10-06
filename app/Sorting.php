@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sorting extends Model
 {
+    protected $fillable = ['id', 'name', 'description'];
+
     /**
      * @param  $study
      *                save the type of the sorting when saving the study

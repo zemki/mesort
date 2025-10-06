@@ -3,7 +3,10 @@
     "allow": [
       "Read(//Users/belli/code/metag-analyze/DOCS/**)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)"
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(php artisan test:*)",
+      "Bash(cat:*)",
+      "Bash(php artisan:*)"
     ],
     "deny": [],
     "ask": []

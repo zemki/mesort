@@ -1,9 +1,10 @@
 [![DOI](https://zenodo.org/badge/860402711.svg)](https://doi.org/10.5281/zenodo.13836993)
+[![Tests](https://github.com/zemki/mesort/actions/workflows/tests.yml/badge.svg)](https://github.com/zemki/mesort/actions/workflows/tests.yml)
 
 <div align="center" style="display: flex; align-items: center; justify-content: center;">
-<img src="public/images/logo.png" alt="img Mesort" width="100"/>    
+<img src="public/images/logo.png" alt="img Mesort" width="100"/>
 <h2 style="margin-right: 10px;">Mesort</h2>
-    
+
 </div>
 
 MeSort is a research app designed to facilitate sorting tasks, especially during qualitative interviews. In the backend the researcher first defines the items to be sorted and the sorting scheme that should be used. Additional questions before and after the sorting process can also be defined.

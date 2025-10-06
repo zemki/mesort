@@ -3,6 +3,7 @@
 namespace App;
 
 use Helper;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,8 @@ use Storage;
 
 class Token extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name', 'image_path', 'author', 'properties',
     ];
